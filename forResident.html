@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <style>
+  body {
+    font-family: Arial;
+  }
+
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  div.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+</style>
+
+<script>
+    function fetchCode(){
+
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onload = function(){
+        console.log(xhttp.response);
+        var responseJSON = JSON.parse(xhttp.response);
+        console.log(responseJSON);
+        var code = responseJSON.message;
+        $("#cont").attr('src', code);
+      };
+    
+      xhttp.open("GET","https://stage1.uidai.gov.in/eAadhaarService/api/downloadOfflineEkyc",true);
+      xhttp.send();
+    }
+
+
+    $("#b1").click(fetchCode);
+
+
+  </script>
+
+</head>
+
+<body>
+
+<h3>Enter code</h3>
+<p>Enter the 16 digit code you have received from the introducer to get the address.</p>
+
+<div class="container">
+  <form method="post">
+
+    <label for="fname">Code</label>
+    <input type="text" id="fname" name="firstname" placeholder="Enter the VID" pattern="\d{16,16}">
+  
+    <button id="b1">Submit</button>
+    <p id="cont"> </p>
+
+  </form>
+</div>
+
+</body>
+</html>
