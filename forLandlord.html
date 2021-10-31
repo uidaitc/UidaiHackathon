@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <style>
+  body {
+    font-family: Arial;
+  }
+
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  div.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+</style>
+
+<script>
+    function fetchCode(){
+
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onload = function(){
+        console.log(xhttp.response);
+        var responseJSON = JSON.parse(xhttp.response);
+        console.log(responseJSON);
+        var code = responseJSON.message;
+        $("#cont").attr('src', code);
+      };
+    
+      xhttp.open("GET","https://vid-stage.uidai.gov.in/uidauthvidserviceinboundsms/vidserviceinbound/1.0/9/9",true);
+      xhttp.send();
+    }
+
+
+    $("#b1").click(fetchCode);
+
+
+  </script>
+
+</head>
+
+<body>
+
+<h3>Get 16 digit code</h3>
+<p>Enter your aadhar number to get a 16 digit code to be used in its place.</p>
+
+<div class="container">
+  <form method="post">
+
+    <label for="fname">Aadhar number</label>
+    <input type="text" id="fname" name="firstname" placeholder="Enter your aadhar number" pattern="\d{12,12}">
+  
+    <button id="b1">Submit</button>
+    <p id= "cont"> </p>
+
+  </form>
+</div>
+
+</body>
+</html>
